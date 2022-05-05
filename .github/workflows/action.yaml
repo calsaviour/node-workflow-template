@@ -15,14 +15,14 @@ jobs:
         with:
           node-version: "16"
       - name: build smart contract
-        if: ${{ inputs.directory != "" }}
+        if: ${{ inputs.directory }} != ''
         working-directory: ${{ inputs.directory }}
         run: |
           npm install
           npx hardhat compile
           npx hardhat test
       - name: build smart contract
-        if: ${{ inputs.directory == "" }}
+        if: ${{ inputs.directory }} == ''
         run: |
           npm install
           npx hardhat compile
