@@ -18,7 +18,7 @@ jobs:
         env:
           directory: ${{ inputs.directory }}
         run: |
-          if $directory; then
+          if [ ! -z "$directory" ]; then
             echo "Change directory"
             cd $directory
           fi
