@@ -14,16 +14,14 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: "16"
-      - name: build smart contract
-        if: ${{ inputs.directory }} != ''
-        working-directory: ${{ inputs.directory }}
+      - name: build smart contract with directory
+        env:
+          directory: ${{ inputs.directory }}
         run: |
-          npm install
-          npx hardhat compile
-          npx hardhat test
-      - name: build smart contract
-        if: ${{ inputs.directory }} == ''
-        run: |
+          if $directory; then
+            echo "Change directory"
+            cd $directory
+          fi
           npm install
           npx hardhat compile
           npx hardhat test
