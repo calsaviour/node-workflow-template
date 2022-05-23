@@ -4,6 +4,9 @@ on:
       directory:
         required: false
         type: string
+    secrets:
+      alchemy_url:
+        required: true
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,11 +19,11 @@ jobs:
           node-version: "16"
       - name: build smart contract with directory
         env:
-          directory: ${{ inputs.directory }}
+          POLYGON_ALCHEMY_API_KEY_URL: ${{ secrets.alchemy_url }}
         run: |
-          if [ ! -z "$directory" ]; then
+          if [ ! -z ${{ inputs.directory }} ]; then
             echo "Change directory"
-            cd $directory
+            cd ${{ inputs.directory }}
           fi
           npm install
           npx hardhat compile
