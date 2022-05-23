@@ -23,6 +23,7 @@ jobs:
       - name: build smart contract with directory
         env:
           POLYGON_ALCHEMY_API_KEY_URL: ${{ secrets.alchemy_url }}
+          ETHEREUM_MAINNET_ALCHEMY_URL: ${{ secrets.alchemy_url }}
         run: |
           if [ ! -z ${{ inputs.directory }} ]; then
             echo "Change directory"
