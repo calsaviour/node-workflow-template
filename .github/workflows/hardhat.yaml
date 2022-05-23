@@ -1,0 +1,33 @@
+on:
+  workflow_call:
+    inputs:
+      directory:
+        required: false
+        type: string
+      file:
+        required: false
+        type: string
+    secrets:
+      alchemy_url:
+        required: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+      - name: build smart contract with directory
+        env:
+          POLYGON_ALCHEMY_API_KEY_URL: ${{ secrets.alchemy_url }}
+        run: |
+          if [ ! -z ${{ inputs.directory }} ]; then
+            echo "Change directory"
+            cd ${{ inputs.directory }}
+          fi
+          npm install
+          npx hardhat compile
+          npx hardhat run ${{ inputs.file }}
