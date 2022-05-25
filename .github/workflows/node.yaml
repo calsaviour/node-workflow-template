@@ -7,6 +7,11 @@ on:
       file:
         required: false
         type: string
+    secrets:
+      alchemy_url:
+        required: false
+      etherscan_apikey:
+        required: false
 jobs:
   build:
     runs-on: ubuntu-latest
